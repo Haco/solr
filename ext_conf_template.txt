@@ -1,6 +1,9 @@
 # cat=basic/enable/10; type=boolean; label=Use closest rootpage for configuration (Performance improvement)
 useConfigurationFromClosestTemplate = 0
 
+# cat=basic/enable/15; type=integer; label=Set PID of the domain rootpage as fallback: IMPORTANT: useConfigurationFromClosestTemplate needs to be enabled for this to take effect!!!! If the page or sys_folder of the indexed records is not in the rootline of the domain rootpage - you can set the PID of the actual domain rootpage pid here manually. The domain rootpages' typoscript configuration will be then also loaded for pages/sys_folders that are outside of the domain rootpage rootline. 
+defaultDomainRootPid = 1
+
 # cat=basic/enable/20; type=boolean; label=Enable/Disable record tracking outside siteroot
 useConfigurationTrackRecordsOutsideSiteroot = 1
 

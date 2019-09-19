@@ -119,15 +119,21 @@ class ConfigurationPageResolver
      */
     protected function getPageIdsWithTemplateInRootLineOrderedByDepth($rootLine)
     {
+        $extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class);
+        $defaultRootPidFallback = $extensionConfiguration->getDefaultDomainRootPid();
+       
         $rootLinePageIds = [0];
-        foreach ($rootLine as $rootLineItem) {
+        
+	foreach ($rootLine as $rootLineItem) {
             $rootLinePageIds[] = (int)$rootLineItem['uid'];
         }
+
+	// return the default domain root pid, if not found in rootline - this makes sure that the current indexed page/folder loads the typoscript from the default domain root pid, if the current page/folder is not in the rootline of the domain root pid
+	if ($defaultRootPidFallback > 0 && !in_array($defaultRootPidFallback, $rootLinePageIds)) return $defaultRootPidFallback;
 
         $pageIdsClause = implode(",", $rootLinePageIds);
         $where = 'pid IN (' . $pageIdsClause . ') AND deleted = 0 AND hidden = 0';
         $res = $this->getDatabaseConnection()->exec_SELECTgetRows('uid,pid', 'sys_template', $where);
-
         $firstTemplateRow = $res[0];
         return isset($firstTemplateRow['pid']) ? $firstTemplateRow['pid'] : 0;
     }

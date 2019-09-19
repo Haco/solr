@@ -316,11 +316,12 @@ class Util
     protected static function getConfigurationPageIdToUse($pageId)
     {
         $extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class);
-        if ($extensionConfiguration->getIsUseConfigurationFromClosestTemplateEnabled()) {
+	
+	if ($extensionConfiguration->getIsUseConfigurationFromClosestTemplateEnabled()) {
             /** @var $configurationPageResolve ConfigurationPageResolver */
             $configurationPageResolver = GeneralUtility::makeInstance(ConfigurationPageResolver::class);
-            $pageId = $configurationPageResolver->getClosestPageIdWithActiveTemplate($pageId);
-            return $pageId;
+	    $pageId = $configurationPageResolver->getClosestPageIdWithActiveTemplate($pageId); 
+	    return $pageId;
         }
         return $pageId;
     }

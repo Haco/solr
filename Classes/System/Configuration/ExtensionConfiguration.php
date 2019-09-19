@@ -101,6 +101,15 @@ class ExtensionConfiguration
         return GeneralUtility::trimExplode(',', $monitorTablesList);
     }
 
+
+    /**
+	@return int
+    */
+    public function getDefaultDomainRootPid()
+    {
+	return (int)$this->getConfigurationOrDefaultValue('defaultDomainRootPid', '');
+    }
+
     /**
      * @param string $key
      * @param mixed $defaultValue
